@@ -1,147 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Inquiry Chatbot</title>
-    <style>
-        /* General Styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Inquiry Chatbot</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
 
-        /* Chat Container */
-        .chat-container {
-            width: 90%;
-            max-width: 400px;
-            height: 600px;
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            border: 3px solid #00aaff;
-            position: relative;
-        }
+    /* Chat Container */
+    .chat-container {
+      width: 90%;
+      max-width: 400px;
+      height: 600px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: 3px solid #00aaff;
+      position: relative;
+    }
 
-        /* Header Styles */
-        .chat-header {
-            background-color: #00aaff;
-            color: #fff;
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 15px;
-            font-weight: bold;
-        }
+    /* Header Styles */
+    .chat-header {
+      background-color: #00aaff;
+      color: #fff;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 15px;
+      font-weight: bold;
+    }
 
-        /* Instruction Box */
-        .instruction-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            background-color: #f9f9f9;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            font-size: 1rem;
-            z-index: 10;
-        }
+    /* Instruction Box */
+    .instruction-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      background-color: #f9f9f9;
+      color: #333;
+      text-align: center;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      font-size: 1rem;
+      z-index: 10;
+    }
 
-        /* Circle Button */
-        .chatbot-circle {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #00aaff;
-            border-radius: 50%;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 20;
-        }
+    /* Hide the instruction box when chatbot is loaded */
+    .hide-instruction {
+      display: none;
+    }
 
-        .chatbot-circle span {
-            font-size: 2rem;
-            color: white;
-        }
+    /* Circle Button */
+    .chatbot-circle {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #00aaff;
+      border-radius: 50%;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 20;
+    }
 
-        /* Footer Styles */
-        .chat-footer {
-            text-align: center;
-            font-size: 0.85rem;
-            padding: 10px;
-            background-color: #f4f4f4;
-            color: #666;
-            border-top: 1px solid #ddd;
-        }
-    </style>
+    .chatbot-circle span {
+      font-size: 2rem;
+      color: white;
+    }
+
+    /* Footer Styles */
+    .chat-footer {
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 10px;
+      background-color: #f4f4f4;
+      color: #666;
+      border-top: 1px solid #ddd;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .chat-container {
+        width: 100%;
+        height: 90vh;
+      }
+
+      .chat-header {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            College Inquiry Chatbot
-        </div>
-
-        <!-- Instruction Box -->
-        <div class="instruction-box" id="instruction-box">
-            Click the circle at the bottom-right corner to activate the chatbot.
-        </div>
-
-        <!-- Circle for activating chatbot -->
-        <div class="chatbot-circle" onclick="activateChatbot()">
-            <span>💬</span>
-        </div>
-
-        <div class="chat-footer">
-            Powered by Dialogflow
-        </div>
+  <div class="chat-container">
+    <div class="chat-header">
+      College Inquiry Chatbot
     </div>
 
-    <!-- Dialogflow Chat Widget -->
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <df-messenger intent="WELCOME" chat-title="CollegeInquiryChatbot" agent-id="14690477-f77e-4591-b199-2c24b607f987"
-        language-code="en"></df-messenger>
+    <!-- Instruction Box -->
+    <div class="instruction-box" id="instruction-box">
+      Click the circle at the bottom-right corner to activate the chatbot.
+    </div>
 
-    <script>
-        function activateChatbot() {
-            // Show the Dialogflow widget
-            const chatbotWidget = document.getElementById('chatbot-widget');
-            chatbotWidget.style.display = 'block';
+    <!-- Circle for activating chatbot -->
+    <div class="chatbot-circle" onclick="activateChatbot()">
+      <span>💬</span>
+    </div>
 
-            // Update the instruction text
-            const instructionBox = document.getElementById('instruction-box');
-            if (instructionBox) {
-                instructionBox.innerText = 'The chatbot has been activated. Use the Dialogflow button at the bottom-right corner of the page to interact.';
-            }
+    <div class="chat-footer">
+      Powered by Dialogflow | Contact us for support
+    </div>
+  </div>
 
-            // Optional: Scroll to bottom to reveal chatbot
-            window.scrollTo(0, document.body.scrollHeight);
-        }
+  <!-- Dialogflow Chat Widget -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="CollegeInquiryChatbot"
+    agent-id="14690477-f77e-4591-b199-2c24b607f987"
+    language-code="en"
+    style="display: none;" 
+    id="chatbot-widget">
+  </df-messenger>
 
-        // Debugging: Check if Dialogflow widget is loading correctly
-        window.onload = function () {
-            const chatbotWidget = document.getElementById('chatbot-widget');
-            console.log("Chatbot widget is present: ", chatbotWidget ? 'Yes' : 'No');
-        }
-    </script>
+  <script>
+    function activateChatbot() {
+      // Show the Dialogflow widget
+      const chatbotWidget = document.getElementById('chatbot-widget');
+      chatbotWidget.style.display = 'block';
+
+      // Update the instruction text
+      const instructionBox = document.getElementById('instruction-box');
+      if (instructionBox) {
+        instructionBox.innerText = 'The chatbot has been activated. Use the Dialogflow button at the bottom-right corner of the page to interact.';
+      }
+    }
+  </script>
 </body>
-
 </html>
